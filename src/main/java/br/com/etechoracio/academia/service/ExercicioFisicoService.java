@@ -1,9 +1,10 @@
 package br.com.etechoracio.academia.service;
 
-import br.com.etechoracio.academia.DTO.ExercicioFisicoResponseDTO; 
-import br.com.etechoracio.academia.repository.ExercicioFisicoRepository; 
+import br.com.etechoracio.academia.repository.ExercicioFisicoRepository;
 import br.com.etechoracio.academia.mapper.ExercicioFisicoMapper;
-import br.com.etechoracio.academia.entity.ExercicioFisico; 
+import br.com.etechoracio.academia.DTO.ExercicioFisicoResponseDTO;
+import br.com.etechoracio.academia.DTO.ExercicioFisicoRequestDTO; 
+import br.com.etechoracio.academia.entity.ExercicioFisico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -26,5 +27,13 @@ public class ExercicioFisicoService {
         return repository.findByIdAndAprovadoTrue(id)
                 .map(mapper::toResponseDTO)
                 .orElse((null));
+    }
+
+    public ExercicioFisicoResponseDTO cadastrar(ExercicioFisicoRequestDTO requestDTO) {
+        var exercicio = mapper.toEntity(requestDTO);
+        exercicio.setAprovado(false); 
+
+        var exercicioSalvo = repository.save(exercicio);
+        return mapper.toResponseDTO(exercicioSalvo);
     }
 }
