@@ -36,4 +36,17 @@ public class ExercicioFisicoService {
         var exercicioSalvo = repository.save(exercicio);
         return mapper.toResponseDTO(exercicioSalvo);
     }
+
+    public ExercicioFisicoResponseDTO aprovar(Long id) {
+        var exercicioOptional = repository.findById(id);
+
+        if (exercicioOptional.isEmpty()) {
+            return null;
+        }
+
+        var exercicio = exercicioOptional.get();
+        exercicio.setAprovado(true);
+        var exercicioAprovado = repository.save(exercicio);
+        return mapper.toResponseDTO(exercicioAprovado);
+    }
 }

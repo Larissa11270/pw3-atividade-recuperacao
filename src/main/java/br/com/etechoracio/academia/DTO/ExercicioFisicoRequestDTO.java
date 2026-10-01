@@ -10,8 +10,5 @@ public record ExercicioFisicoRequestDTO(
         int repeticoes,
         double cargaSugerida,
         NivelDificuldadeEnum nivelDificuldade
-    
-
 ){
-
 }

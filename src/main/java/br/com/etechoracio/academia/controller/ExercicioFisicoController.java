@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.HttpStatus;
 import java.util.List;
@@ -39,5 +40,15 @@ public class ExercicioFisicoController {
     public ResponseEntity<ExercicioFisicoResponseDTO> cadastrar(@RequestBody ExercicioFisicoRequestDTO request) {
         ExercicioFisicoResponseDTO response = service.cadastrar(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PatchMapping("/{id}/aprovar")
+    public ResponseEntity<ExercicioFisicoResponseDTO> aprovar(@PathVariable Long id) {
+        ExercicioFisicoResponseDTO response = service.aprovar(id);
+        
+        if (response == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(response);
     }
 }
